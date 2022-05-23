@@ -18,7 +18,7 @@ import MenuSocialLinks from './MenuSocialLinks';
 
 export default function Layout({ children }) {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleDrawerOpen = useCallback(() => { setOpen(true); }, []);
   const handleDrawerClose = useCallback(() => { setOpen(false); }, []);
   
