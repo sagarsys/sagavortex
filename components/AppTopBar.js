@@ -27,7 +27,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const AppTopBar = ({ isOpened, handleDrawerOpen }) => {
-  return (
+  return isOpened ? '' : (
       <AppBar position="fixed" open={isOpened}>
         <Toolbar>
           <IconButton
@@ -43,7 +43,7 @@ const AppTopBar = ({ isOpened, handleDrawerOpen }) => {
             <MenuIcon />
           </IconButton>
           <Logo />
-          <Typography variant="h6" noWrap component="div" marginLeft={2}>
+          <Typography variant="h6" noWrap component="h1" marginLeft={2}>
             SagaVortex Photography
           </Typography>
         </Toolbar>

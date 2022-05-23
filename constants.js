@@ -19,7 +19,7 @@ export const LIGHT_COLOR_PALETTE = {
   SECONDARY: '#FFCB9A'
 };
 
-export const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH = 300;
 
 export const SITE_MENU_ITEMS = [
   {

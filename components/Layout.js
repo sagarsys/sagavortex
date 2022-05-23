@@ -24,21 +24,28 @@ export default function Layout({ children }) {
   
   return (
       <Box sx={{ display: 'flex' }}>
-        <AppTopBar isOpened={open} handleDrawerOpen={handleDrawerOpen} />
+        <AppTopBar isOpened={open} handleDrawerOpen={handleDrawerOpen}/>
         <Drawer variant="permanent" open={open}>
           <DrawerHeader>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
             </IconButton>
           </DrawerHeader>
-          <Divider />
-          <Logo size={DRAWER_WIDTH} />
-          <SideMenuNav open={open} />
-          <Divider />
-          <MenuSocialLinks open={open} />
+          <Divider/>
+          {open && (
+              <>
+                <Logo size={DRAWER_WIDTH}/>
+                <Typography variant="h6" noWrap component="h1" textAlign="center" marginBottom={2}>
+                  SagaVortex Photography
+                </Typography>
+              </>
+          )}
+          <SideMenuNav open={open}/>
+          <Divider/>
+          <MenuSocialLinks open={open}/>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
+          <DrawerHeader/>
           {children}
         </Box>
       </Box>
