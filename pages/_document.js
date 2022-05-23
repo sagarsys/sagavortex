@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
     return (
         <Html lang="en">
           <Head>
-            <meta name="viewport" content="initial-scale=1, width=device-width" />
+            <title>SagaVortex Photography</title>
             <meta name="description" content="Professional Landscape Photographer - Visual Vortex" />
             {/* PWA primary color */}
             <meta name="theme-color" content={'#556cd6'} />
