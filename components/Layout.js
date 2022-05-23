@@ -12,6 +12,9 @@ import AppTopBar from './AppTopBar';
 import SideMenuNav from './SideMenuNav';
 import DrawerHeader from './DrawerHeader';
 import Drawer from './Drawer';
+import Logo from './Logo';
+import { DRAWER_WIDTH } from '../constants';
+import MenuSocialLinks from './MenuSocialLinks';
 
 export default function Layout({ children }) {
   const theme = useTheme();
@@ -29,7 +32,10 @@ export default function Layout({ children }) {
             </IconButton>
           </DrawerHeader>
           <Divider />
+          <Logo size={DRAWER_WIDTH} />
           <SideMenuNav open={open} />
+          <Divider />
+          <MenuSocialLinks open={open} />
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
