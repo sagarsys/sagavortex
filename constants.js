@@ -1,3 +1,7 @@
+import HomeIcon from '@mui/icons-material/Home';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import CycloneIcon from '@mui/icons-material/Cyclone';
+
 export const THEME_MODES = {
   DARK: 'dark',
   LIGHT: 'light',
@@ -16,3 +20,24 @@ export const LIGHT_COLOR_PALETTE = {
 };
 
 export const DRAWER_WIDTH = 240;
+
+export const SITE_MENU_ITEMS = [
+  {
+    id: 'smi-1',
+    label: 'Home',
+    icon: HomeIcon,
+    link: '/'
+  },
+  {
+    id: 'smi-2',
+    label: 'Categories',
+    icon: ListAltIcon,
+    link: '/categories'
+  },
+  {
+    id: 'smi-3',
+    label: 'About',
+    icon: CycloneIcon,
+    link: '/about'
+  }
+]
