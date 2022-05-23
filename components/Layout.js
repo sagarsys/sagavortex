@@ -1,0 +1,40 @@
+// noinspection JSValidateTypes
+
+import React, { useCallback, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import AppTopBar from './AppTopBar';
+import SideMenuNav from './SideMenuNav';
+import DrawerHeader from './DrawerHeader';
+import Drawer from './Drawer';
+
+export default function Layout({ children }) {
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const handleDrawerOpen = useCallback(() => { setOpen(true); }, []);
+  const handleDrawerClose = useCallback(() => { setOpen(false); }, []);
+  
+  return (
+      <Box sx={{ display: 'flex' }}>
+        <AppTopBar isOpened={open} handleDrawerOpen={handleDrawerOpen} />
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <SideMenuNav open={open} />
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
+          {children}
+        </Box>
+      </Box>
+  );
+}
