@@ -41,3 +41,16 @@ export const SITE_MENU_ITEMS = [
     link: '/about'
   }
 ]
+
+export const VIEWPORT_SIZES = {
+  SM: 600,
+  MD: 1024,
+  LG: 1920,
+  XL: 2500,
+}
+
+export const IMAGE_BREAKPOINTS = {
+  sm: 540,
+  md: 1080,
+  lg: 1600,
+}
