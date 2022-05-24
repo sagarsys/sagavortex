@@ -54,3 +54,8 @@ export const IMAGE_BREAKPOINTS = {
   md: 1080,
   lg: 1600,
 }
+
+export const DEVICE_ORIENTATION = {
+  PORTRAIT: 'portrait',
+  LANDSCAPE: 'landscape'
+}
