@@ -19,7 +19,10 @@
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-bnb-gallery": "^1.4.4",
+    "react-dom": "latest",
+    "react-photo-album": "^1.14.0",
+    "yet-another-react-lightbox": "^1.1.2"
   },
   "devDependencies": {
     "eslint": "latest",
