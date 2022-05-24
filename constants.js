@@ -52,7 +52,7 @@ export const VIEWPORT_SIZES = {
 export const IMAGE_BREAKPOINTS = {
   sm: 540,
   md: 1080,
-  lg: 1600,
+  lg: 1920,
 }
 
 export const DEVICE_ORIENTATION = {
