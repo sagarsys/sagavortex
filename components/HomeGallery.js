@@ -1,21 +1,55 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
+import React, { useCallback, useState } from 'react'
+import PhotoAlbum from 'react-photo-album'
+import { Lightbox } from 'yet-another-react-lightbox'
+import useViewportSize from '../hooks/useViewportSize'
+import { imagesData } from '../data/images'
+import { IMAGE_BREAKPOINTS } from '../constants';
+import { calculateImageDimensionForViewPort } from '../utils/images';
 
 const HomeGallery = () => {
+  const { sm, md, lg, xl } = useViewportSize()
+  const [index, setIndex] = useState(-1)
+  const getThumbnails = useCallback(() => imagesData.map(({ src, caption, ...props}) => ({
+        src: src('thumbnails'),
+        alt: caption,
+        ...props
+      })), []
+  )
+  const getLightboxImages = useCallback(() => {
+    let viewport
+    if (sm) viewport = 'sm'
+    else if (md) viewport = 'md'
+    else if (lg || xl) viewport = 'lg'
+    return imagesData.map(({ src, width, height, caption,...props}) => ({
+      src: src(viewport),
+      aspectRatio: width / height,
+      title: caption,
+      srcSet: Object.keys(IMAGE_BREAKPOINTS).map((breakpoint) => ({
+        src: src(breakpoint),
+        width: calculateImageDimensionForViewPort(breakpoint, width, height).width
+      })),
+      width, height, ...props
+    }))
+  }, [lg, md, sm, xl])
+  
   return (
-      <Typography paragraph>
-        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-        eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-        neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-        tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-        sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-        tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-        gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-        et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-        tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-        eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-        posuere sollicitudin aliquam ultrices sagittis orci a.
-      </Typography>
+      <>
+        <PhotoAlbum
+            photos={getThumbnails()}
+            layout="rows"
+            targetRowHeight={300}
+            onClick={(event, photo, index) => setIndex(index)}
+            spacing={(containerWidth => containerWidth < IMAGE_BREAKPOINTS.md ? 15 : 20)}
+        />
+      
+        <Lightbox
+            slides={getLightboxImages()}
+            open={index >= 0}
+            index={index}
+            close={() => setIndex(-1)}
+            carousel={{ finite: false, }}
+        />
+      </>
   );
 };
 
