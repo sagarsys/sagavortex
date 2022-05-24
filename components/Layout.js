@@ -1,6 +1,6 @@
 // noinspection JSValidateTypes
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,12 +15,16 @@ import Drawer from './Drawer';
 import Logo from './Logo';
 import { DRAWER_WIDTH } from '../constants';
 import MenuSocialLinks from './MenuSocialLinks';
+import useViewportSize from '../hooks/useViewportSize';
 
 export default function Layout({ children }) {
-  const theme = useTheme();
-  const [open, setOpen] = useState(true);
+  const theme = useTheme()
+  const { lg, xl } = useViewportSize()
+  const [open, setOpen] = useState((lg || xl));
   const handleDrawerOpen = useCallback(() => { setOpen(true); }, []);
   const handleDrawerClose = useCallback(() => { setOpen(false); }, []);
+  
+  useEffect(() => { setOpen(lg || xl) }, [lg, xl])
   
   return (
       <Box sx={{ display: 'flex' }}>
@@ -45,7 +49,7 @@ export default function Layout({ children }) {
           <MenuSocialLinks open={open}/>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader/>
+          {!open && <DrawerHeader/>}
           {children}
         </Box>
       </Box>
