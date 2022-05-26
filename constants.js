@@ -1,5 +1,5 @@
 import HomeIcon from '@mui/icons-material/Home';
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import CollectionsIcon from '@mui/icons-material/Collections';
 import CycloneIcon from '@mui/icons-material/Cyclone';
 
 export const THEME_MODES = {
@@ -8,8 +8,8 @@ export const THEME_MODES = {
 };
 
 export const DARK_COLOR_PALETTE = {
-  BG: '#222629',
-  PRIMARY: '#116466',
+  BG: '#1a1a1d',
+  PRIMARY: '#002828',
   SECONDARY: '#4e4e50'
 };
 
@@ -31,7 +31,7 @@ export const SITE_MENU_ITEMS = [
   {
     id: 'smi-2',
     label: 'Categories',
-    icon: ListAltIcon,
+    icon: CollectionsIcon,
     link: '/categories'
   },
   {
