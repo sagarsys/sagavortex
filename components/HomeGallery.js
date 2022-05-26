@@ -5,6 +5,7 @@ import useViewportSize from '../hooks/useViewportSize'
 import { imagesData } from '../data/images'
 import { IMAGE_BREAKPOINTS } from '../constants';
 import { calculateImageDimensionForViewPort } from '../utils/images';
+import Box from '@mui/material/Box';
 
 const HomeGallery = () => {
   const { sm, md, lg, xl } = useViewportSize()
@@ -33,7 +34,7 @@ const HomeGallery = () => {
   }, [lg, md, sm, xl])
   
   return (
-      <>
+      <Box component="article" sx={{ p: (sm || md) ? 2 : 3 }}>
         <PhotoAlbum
             photos={getThumbnails()}
             layout="rows"
@@ -41,7 +42,6 @@ const HomeGallery = () => {
             onClick={(event, photo, index) => setIndex(index)}
             spacing={(containerWidth => containerWidth < IMAGE_BREAKPOINTS.md ? 15 : 20)}
         />
-      
         <Lightbox
             slides={getLightboxImages()}
             open={index >= 0}
@@ -49,7 +49,7 @@ const HomeGallery = () => {
             close={() => setIndex(-1)}
             carousel={{ finite: false, }}
         />
-      </>
+      </Box>
   );
 };
 
