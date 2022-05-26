@@ -1,0 +1,17 @@
+.about {
+  position: relative;
+  background: url("/images/me.jpg") no-repeat bottom right;
+  background-size: cover;
+}
+
+.heading {
+  text-align: right;
+}
+
+.biography {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 30px;
+  width: 70%;
+}
