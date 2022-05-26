@@ -48,7 +48,7 @@ export default function Layout({ children }) {
           <Divider/>
           <MenuSocialLinks open={open}/>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1 }}>
           {!open && <DrawerHeader/>}
           {children}
         </Box>
