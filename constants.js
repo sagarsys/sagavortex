@@ -1,6 +1,8 @@
 import HomeIcon from '@mui/icons-material/Home';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import CycloneIcon from '@mui/icons-material/Cyclone';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import BurstModeIcon from '@mui/icons-material/BurstMode';
 
 export const THEME_MODES = {
   DARK: 'dark',
@@ -30,12 +32,24 @@ export const SITE_MENU_ITEMS = [
   },
   {
     id: 'smi-2',
-    label: 'Categories',
+    label: 'Gallery',
     icon: CollectionsIcon,
     link: '/categories'
   },
   {
     id: 'smi-3',
+    label: 'Prints',
+    icon: BurstModeIcon,
+    link: '/categories'
+  },
+  {
+    id: 'smi-4',
+    label: 'Blog',
+    icon: AutoStoriesIcon,
+    link: 'blog',
+  },
+  {
+    id: 'smi-5',
     label: 'About',
     icon: CycloneIcon,
     link: '/about'
