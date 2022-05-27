@@ -16,6 +16,7 @@ const About = () => {
   
   useEffect(() => {
     const initParticles = () => {
+      if (!particlesJson) return;
       particlesJS('particles-js', particlesJson)
       setHasInit(true)
     };
@@ -51,7 +52,7 @@ const About = () => {
           <div id="particles-js" style={{ height: '100vh' }} />
         </Box>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.4.0/gl-matrix-min.js" strategy="lazyOnload" onLoad={() => setIsGLLoaded(true)} />
-        <Script src="js/particles.min.js" strategy="lazyOnload" onLoad={() => setIsParticlesLoaded(true)} />
+        <Script src="js/particles.js" strategy="lazyOnload" onLoad={() => setIsParticlesLoaded(true)} />
       </>
   );
 };
