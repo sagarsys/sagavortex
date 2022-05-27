@@ -1,21 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .comingSoon {
     background: #eee;
     text-align: center;
     user-select: none;
     cursor: default;
     letter-spacing: 5px;
-    width: 100%;
-    height: 100%;
 }
 
 .comingSoon:after {
     content: "";
-    background-image: radial-gradient(
-            circle farthest-corner at 10% 20%,
-            rgba(0, 107, 141, 1) 0%,
-            rgba(0, 69, 91, 1) 90%
-    );
+    background-image: url("/images/distant-boat.jpg");
     top: 0;
     left: 0;
     bottom: 0;
@@ -34,6 +27,13 @@
     transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
+}
+
+@media only screen and (max-width: 540px) {
+    .innerWrap {
+        width: calc(100% - 57px);
+        left: calc(50% + 27px);
+    }
 }
 
 .avatar {
