@@ -34,7 +34,7 @@ export const SITE_MENU_ITEMS = [
     id: 'smi-2',
     label: 'Gallery',
     icon: CollectionsIcon,
-    link: '/categories'
+    link: '/gallery'
   },
   {
     id: 'smi-3',

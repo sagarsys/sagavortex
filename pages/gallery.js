@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Typography from '@mui/material/Typography';
 
-const Categories = () => {
+const Gallery = () => {
   return (
       <>
         <Head>
@@ -15,4 +15,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Gallery;
