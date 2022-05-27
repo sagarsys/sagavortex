@@ -38,10 +38,7 @@ export default function Layout({ children }) {
           <Divider/>
           {open && (
               <>
-                <Logo size={DRAWER_WIDTH}/>
-                <Typography variant="h6" noWrap component="h1" textAlign="center" marginBottom={2}>
-                  SagaVortex Photography
-                </Typography>
+                <Logo size={DRAWER_WIDTH} style={{ margin: 20 }} showCaption={true} />
               </>
           )}
           <SideMenuNav open={open}/>
