@@ -14,11 +14,12 @@ const ComingSoon = () => {
           <Typography variant="h5" component="h2">
             <Typed
                 strings={[
-                  'Great things take time',
-                  'Check back later for more awesome content.',
+                  'Great things take time!',
+                  'We promise it will be worth the wait...',
+                  'Check back later for more awesome content!',
                   'Thank you for your continuous support ;)'
                 ]}
-                typeSpeed={100}
+                typeSpeed={80}
                 loop
             />
           </Typography>
