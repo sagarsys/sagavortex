@@ -8,10 +8,16 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import { useRouter } from 'next/router';
+import useViewportSize from '../hooks/useViewportSize';
 
-function SideMenuNav({ open }) {
+function SideMenuNav({ open, setOpen }) {
+  const { sm, md } = useViewportSize()
   const router = useRouter()
-  const handleClick = (e, link) => { e.preventDefault(); router.push(link); };
+  const handleClick = (e, link) => {
+    e.preventDefault()
+    if (sm || md) setOpen(false)
+    router.push(link)
+  };
   return (
       <nav>
         <List>

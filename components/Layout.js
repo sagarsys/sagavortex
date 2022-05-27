@@ -41,7 +41,7 @@ export default function Layout({ children }) {
                 <Logo size={DRAWER_WIDTH} style={{ margin: 20 }} showCaption={true} />
               </>
           )}
-          <SideMenuNav open={open}/>
+          <SideMenuNav open={open} setOpen={setOpen} />
           <Divider/>
           <MenuSocialLinks open={open}/>
         </Drawer>

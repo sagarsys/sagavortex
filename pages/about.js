@@ -17,7 +17,7 @@ const About = () => {
   useEffect(() => {
     const initParticles = () => {
       if (!particlesJson) return;
-      particlesJS('particles-js', particlesJson)
+      // particlesJS('particles-js', particlesJson)
       setHasInit(true)
     };
     if (isGLLoaded && isParticlesLoaded && (!hasInit || windowHeight !== prevWindowHeight.current)) initParticles();
