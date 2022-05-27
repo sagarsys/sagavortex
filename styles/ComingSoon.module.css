@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+.comingSoon {
+    background: #eee;
+    text-align: center;
+    user-select: none;
+    cursor: default;
+    letter-spacing: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.comingSoon:after {
+    content: "";
+    background-image: radial-gradient(
+            circle farthest-corner at 10% 20%,
+            rgba(0, 107, 141, 1) 0%,
+            rgba(0, 69, 91, 1) 90%
+    );
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.innerWrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.avatar {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    width: 200px;
+    animation: bounce cubic-bezier(0.19, 1, 0.22, 1) 8s alternate infinite;
+}
+
+@keyframes bounce {
+    to {
+        transform: translateY(-6px) scale(1);
+        box-shadow: 0 0 10px #fff, 0 0 20px #43c6ac, 0 0 30px #43c6ac,
+        0 0 40px #43c6ac, 0 0 70px #43c6ac;
+    }
+}
+
+.heading {
+    color: #fff;
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 4em;
+    margin-top: 2%;
+}
+
+.heading .typed-cursor {
+    opacity: 0.5;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
