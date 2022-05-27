@@ -40,13 +40,13 @@ export const SITE_MENU_ITEMS = [
     id: 'smi-3',
     label: 'Prints',
     icon: BurstModeIcon,
-    link: '/categories'
+    link: '/prints'
   },
   {
     id: 'smi-4',
     label: 'Blog',
     icon: AutoStoriesIcon,
-    link: 'blog',
+    link: '/blog',
   },
   {
     id: 'smi-5',
