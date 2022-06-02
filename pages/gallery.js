@@ -6,10 +6,10 @@ const Gallery = () => {
   return (
       <>
         <Head>
-          <title>Categories - SagaVortex Photography</title>
+          <title>Gallery - SagaVortex Photography</title>
         </Head>
         <Typography paragraph>
-          Categories
+          Gallery
         </Typography>
       </>
   );
