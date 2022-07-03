@@ -11,7 +11,7 @@ export const SocialLinks = [
   },
   {
     name: 'Facebook',
-    link: 'https://facebook.com/sagarsys',
+    link: 'https://facebook.com/sagavortex.art',
     icon: FacebookIcon
   },
   {
