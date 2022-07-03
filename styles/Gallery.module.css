@@ -1,0 +1,9 @@
+.gallery {
+    width: 95%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+.gallery h1 {
+    margin: 20px 0 30px;
+}
