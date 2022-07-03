@@ -24,7 +24,12 @@ function SideMenuNav({ open, setOpen }) {
           {SITE_MENU_ITEMS.map(({ id, label, icon, link}) => {
             const Icon = icon;
             return (
-                <ListItem key={id} disablePadding sx={{ display: 'block' }}>
+                <ListItem
+                    key={id}
+                    disablePadding
+                    sx={{ display: 'block' }}
+                    style={router.asPath === link ? {backgroundColor: 'rgba(255, 255, 255, 0.08)'} : {} }
+                >
                   <ListItemButton
                       sx={{
                         minHeight: 48,
