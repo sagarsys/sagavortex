@@ -15173,3 +15173,281 @@ Fixing the hydration mismatch and image loading issues. Checking the viewport ho
 
 ---
 
+
+Fixing the hydration mismatch and image loading issues:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: /Users/sagarsawuck/Projects/sagavortex-1/hooks/useWindowSize.js</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="edit_file_v2">
+<details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+Additional data:
+
+```json
+{
+  "codeblockId": "07729234-12e3-4ffd-89d6-0df3c4731850"
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="edit_file_v2">
+<details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+Additional data:
+
+```json
+{
+  "codeblockId": "8254c0c7-8eb8-4b0e-b749-0ca4f13bfdb0"
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="edit_file_v2">
+<details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+Additional data:
+
+```json
+{
+  "codeblockId": "30eedb64-ff80-413e-9893-78883849e998"
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="edit_file_v2">
+<details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+Additional data:
+
+```json
+{
+  "codeblockId": "4d7cc7ea-c0e9-4369-ba57-f2c22dc4a835"
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: /Users/sagarsawuck/Projects/sagavortex-1/pages/blog/[slug].js</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Adding the missing import:
+
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
+<details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+
+Parameters:
+
+```json
+{
+  "pattern": "import.*Box",
+  "path": "/Users/sagarsawuck/Projects/sagavortex-1/pages/blog/[slug].js",
+  "caseInsensitive": false
+}
+```
+Result:
+
+```json
+{
+  "success": {
+    "pattern": "import.*Box",
+    "path": "/Users/sagarsawuck/Projects/sagavortex-1/pages/blog/[slug].js",
+    "outputMode": "content",
+    "workspaceResults": {
+      "/Users/sagarsawuck/Projects/sagavortex-1": {
+        "content": {
+          "matches": [
+            {
+              "file": "pages/blog/[slug].js",
+              "matches": [
+                {
+                  "lineNumber": 4,
+                  "content": "import Box from '@mui/material/Box';"
+                }
+              ]
+            }
+          ],
+          "totalLines": 1,
+          "totalMatchedLines": 1
+        }
+      }
+    }
+  }
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: /Users/sagarsawuck/Projects/sagavortex-1/pages/blog/[slug].js</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying the build works:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /Users/sagarsawuck/Projects/sagavortex-1 && npm run build 2>&1 | tail -40</summary>
+
+```bash
+cd /Users/sagarsawuck/Projects/sagavortex-1 && npm run build 2>&1 | tail -40
+```
+
+```
+
+&gt; sagavortex@0.1.0 build
+&gt; next build
+
+   ▲ Next.js 16.0.10 (Turbopack)
+
+   Running TypeScript ...
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1120.6ms
+   Collecting page data using 11 workers ...
+   Generating static pages using 11 workers (0/11) ...
+   Generating static pages using 11 workers (2/11) 
+   Generating static pages using 11 workers (5/11) 
+   Generating static pages using 11 workers (8/11) 
+ ✓ Generating static pages using 11 workers (11/11) in 403.0ms
+   Finalizing page optimization ...
+   Exporting using 11 workers (0/8) ...
+   Exporting using 11 workers (2/8) 
+   Exporting using 11 workers (4/8) 
+   Exporting using 11 workers (6/8) 
+
+Route (pages)
+┌ ○ /
+├   /_app
+├ ○ /404
+├ ○ /about
+├ ● /blog
+├ ● /blog/[slug] (509 ms)
+│ ├ /blog/capturing-motion-in-nature
+│ ├ /blog/getting-started-with-landscape-photography
+│ └ /blog/the-art-of-composition
+├ ○ /gallery
+├ ○ /gallery/[id]
+└ ○ /prints
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses getStaticProps)
+
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Build succeeded. Summary of fixes:
+
+## Fixed issues
+
+### 1. Hydration mismatch (`sizes` prop warning)
+- Problem: `cardHeight` in `CategoryCard` was calculated using `useViewportSize`, which depends on client-side `window`, causing server/client mismatch.
+- Solution:
+  - Set default `cardHeight` to `360` (matches SSR)
+  - Use `useEffect` to update height only on the client after hydration
+  - Ensures server and client render the same initial value
+
+### 2. Random image failures
+- Problem: Images breaking randomly, likely due to:
+  - Missing `unoptimized` prop for static export
+  - Insufficient error handling
+- Solution:
+  - Added `unoptimized={true}` to all `Image` components (required for static export with `output: 'export'`)
+  - Added `imageError` state to track failures
+  - Added fallback UI showing "Image unavailable" when images fail to load
+  - Improved error handling in `onError` callbacks
+
+### 3. Components updated
+- `CategoryCard.js` — Fixed hydration mismatch and added error handling
+- `BlogCard.js` — Added error handling and `unoptimized` prop
+- `pages/blog/[slug].js` — Added error handling and `unoptimized` prop
+
+These changes should:
+- Eliminate the hydration mismatch warning
+- Prevent random image failures with proper error handling
+- Show fallback UI when images can't load
+- Work correctly with static export
+
+The build completes successfully, and all pages are statically generated without errors.
+
+---
+
+_**User**_
+
+commit and push
+
+---
+
