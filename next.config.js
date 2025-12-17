@@ -21,7 +21,21 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-  }
+  },
+  async headers() {
+    return [
+      {
+        // Apply caching headers to static assets (images, fonts, etc.)
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig
