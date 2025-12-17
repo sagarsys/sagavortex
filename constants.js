@@ -88,3 +88,20 @@ export const VORTEX_COLORS = [
   "#577590",
   "#277da1"
 ];
+
+// Gallery constants
+export const GALLERY_CONFIG = {
+  TARGET_ROW_HEIGHT: 300,
+  SPACING_SMALL: 15,
+  SPACING_LARGE: 20,
+  SKELETON_COUNT: 18,
+  SKELETON_HEIGHT: 300,
+  IMAGE_LOADING_MAX_WAIT: 10000, // 10 seconds
+  IMAGE_LOADING_CHECK_INTERVAL: 200, // 200ms
+};
+
+// Lightbox constants
+export const LIGHTBOX_CONFIG = {
+  LOADER_SIZE: 60,
+  LOADER_BG: 'rgba(0, 0, 0, 0.5)',
+};
