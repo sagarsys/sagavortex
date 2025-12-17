@@ -1,76 +1,72 @@
-import React, { useCallback, useState } from 'react'
-import PhotoAlbum from 'react-photo-album'
-import { Lightbox } from 'yet-another-react-lightbox'
-import useViewportSize from '../hooks/useViewportSize'
-import { imagesData } from '../data/images'
-import { IMAGE_BREAKPOINTS } from '../constants';
-import { calculateImageDimensionForViewPort } from '../utils/images';
+import React, { useState, useRef } from 'react';
+import PhotoAlbum from 'react-photo-album';
+import { Lightbox } from 'yet-another-react-lightbox';
+import useViewportSize from '../hooks/useViewportSize';
+import { imagesData } from '../data/images';
+import { IMAGE_BREAKPOINTS, GALLERY_CONFIG } from '../constants';
+import useThumbnails from '../hooks/useThumbnails';
+import useLightboxImages from '../hooks/useLightboxImages';
+import useImageLoading from '../hooks/useImageLoading';
+import { useThumbnailPreloading, useLightboxPrefetching } from '../hooks/useImagePreloading';
+import SkeletonLoader from './SkeletonLoader';
+import LightboxLoader from './LightboxLoader';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 
 const HomeGallery = () => {
-  const { sm, md, lg, xl } = useViewportSize()
-  const [index, setIndex] = useState(-1)
-  const getThumbnails = useCallback(() => imagesData.map(({ src, caption, ...props}) => ({
-        src: src('thumbnails'),
-        alt: caption,
-        ...props
-      })), []
-  )
-  const getLightboxImages = useCallback(() => {
-    let viewport
-    if (sm) viewport = 'sm'
-    else if (md) viewport = 'md'
-    else if (lg || xl) viewport = 'lg'
-    return imagesData.map(({ src, width, height, caption,...props}) => ({
-      src: src(viewport),
-      aspectRatio: width / height,
-      title: caption,
-      srcSet: Object.keys(IMAGE_BREAKPOINTS).map((breakpoint) => ({
-        src: src(breakpoint),
-        width: calculateImageDimensionForViewPort(breakpoint, width, height).width
-      })),
-      width, height, ...props
-    }))
-  }, [lg, md, sm, xl])
+  const { sm, md } = useViewportSize();
+  const [index, setIndex] = useState(-1);
+  const containerRef = useRef(null);
+  
+  const thumbnails = useThumbnails(imagesData)();
+  const getLightboxImages = useLightboxImages(imagesData);
+  const imagesLoaded = useImageLoading(containerRef, [thumbnails]);
+  
+  useThumbnailPreloading(thumbnails);
+  useLightboxPrefetching(index, getLightboxImages());
   
   return (
-      <Box component="article" sx={{ p: (sm || md) ? 2 : 3 }}>
+    <Box component="article" sx={{ p: (sm || md) ? 2 : 3, position: 'relative' }}>
+      <Box 
+        ref={containerRef}
+        sx={{ 
+          opacity: imagesLoaded ? 1 : 0,
+          transition: 'opacity 0.3s ease-in-out',
+          pointerEvents: imagesLoaded ? 'auto' : 'none'
+        }}
+      >
         <PhotoAlbum
-            photos={getThumbnails()}
-            layout="rows"
-            targetRowHeight={300}
-            onClick={(event, photo, index) => setIndex(index)}
-            spacing={(containerWidth => containerWidth < IMAGE_BREAKPOINTS.md ? 15 : 20)}
-        />
-        <Lightbox
-            slides={getLightboxImages()}
-            open={index >= 0}
-            index={index}
-            close={() => setIndex(-1)}
-            carousel={{ finite: false, }}
-            render={{
-              loadingIndicator: () => (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    height: '100%',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    zIndex: 1,
-                  }}
-                >
-                  <CircularProgress size={60} sx={{ color: 'white' }} />
-                </Box>
-              ),
-            }}
+          photos={thumbnails}
+          layout="rows"
+          targetRowHeight={GALLERY_CONFIG.TARGET_ROW_HEIGHT}
+          onClick={(event, photo, index) => setIndex(index)}
+          spacing={(containerWidth) => 
+            containerWidth < IMAGE_BREAKPOINTS.md 
+              ? GALLERY_CONFIG.SPACING_SMALL 
+              : GALLERY_CONFIG.SPACING_LARGE
+          }
         />
       </Box>
+      {!imagesLoaded && (
+        <Box sx={{ 
+          position: 'absolute', 
+          top: (sm || md) ? 16 : 24, 
+          left: (sm || md) ? 16 : 24, 
+          right: (sm || md) ? 16 : 24 
+        }}>
+          <SkeletonLoader maxCount={imagesData.length} />
+        </Box>
+      )}
+      <Lightbox
+        slides={getLightboxImages()}
+        open={index >= 0}
+        index={index}
+        close={() => setIndex(-1)}
+        carousel={{ finite: false }}
+        render={{
+          loadingIndicator: () => <LightboxLoader />,
+        }}
+      />
+    </Box>
   );
 };
 

@@ -1,122 +1,41 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PhotoAlbum from 'react-photo-album';
 import { Lightbox } from 'yet-another-react-lightbox';
 import useViewportSize from '../hooks/useViewportSize';
-import { IMAGE_BREAKPOINTS } from '../constants';
-import { calculateImageDimensionForViewPort } from '../utils/images';
+import { IMAGE_BREAKPOINTS, GALLERY_CONFIG } from '../constants';
+import useThumbnails from '../hooks/useThumbnails';
+import useLightboxImages from '../hooks/useLightboxImages';
+import useImageLoading from '../hooks/useImageLoading';
+import { useThumbnailPreloading, useLightboxPrefetching } from '../hooks/useImagePreloading';
+import SkeletonLoader from './SkeletonLoader';
+import LightboxLoader from './LightboxLoader';
 import Box from '@mui/material/Box';
-import Skeleton from '@mui/material/Skeleton';
-import Grid from '@mui/material/Grid';
-import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
 /**
  * Generic ImageGallery component that displays images in a grid with lightbox
  * @param {Array} images - Array of image objects with src function, caption, width, height
  */
 const ImageGallery = ({ images = [] }) => {
-  const { sm, md, lg, xl } = useViewportSize();
+  const { sm, md } = useViewportSize();
   const [index, setIndex] = useState(-1);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
   const containerRef = useRef(null);
-
-  const getThumbnails = useCallback(() => {
-    return images.map(({ src, caption, ...props }) => ({
-      src: src('thumbnails'),
-      alt: caption,
-      ...props,
-    }));
-  }, [images]);
-
-  const getLightboxImages = useCallback(() => {
-    let viewport;
-    if (sm) viewport = 'sm';
-    else if (md) viewport = 'md';
-    else if (lg || xl) viewport = 'lg';
-
-    return images.map(({ src, width, height, caption, ...props }) => ({
-      src: src(viewport),
-      aspectRatio: width / height,
-      title: caption,
-      srcSet: Object.keys(IMAGE_BREAKPOINTS).map((breakpoint) => ({
-        src: src(breakpoint),
-        width: calculateImageDimensionForViewPort(breakpoint, width, height).width,
-      })),
-      width,
-      height,
-      ...props,
-    }));
-  }, [images, lg, md, sm, xl]);
-
-  // Track when images are loaded
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const checkImagesLoaded = () => {
-      const imgElements = containerRef.current?.querySelectorAll('img');
-      if (imgElements && imgElements.length > 0) {
-        let loadedCount = 0;
-        const totalImages = imgElements.length;
-
-        imgElements.forEach((img) => {
-          if (img.complete) {
-            loadedCount++;
-          } else {
-            img.addEventListener('load', () => {
-              loadedCount++;
-              if (loadedCount >= totalImages) {
-                setImagesLoaded(true);
-              }
-            });
-            img.addEventListener('error', () => {
-              loadedCount++;
-              if (loadedCount >= totalImages) {
-                setImagesLoaded(true);
-              }
-            });
-          }
-        });
-
-        if (loadedCount >= totalImages) {
-          setImagesLoaded(true);
-        }
-      } else {
-        // If no images found yet, check again after a short delay
-        setTimeout(checkImagesLoaded, 100);
-      }
-    };
-
-    // Start checking after component mounts
-    const timer = setTimeout(checkImagesLoaded, 100);
-    return () => clearTimeout(timer);
-  }, [images]);
 
   if (!images || images.length === 0) {
     return (
       <Box component="article" sx={{ p: (sm || md) ? 2 : 3 }}>
-        <p>No images available in this category.</p>
+        <Typography>No images available in this category.</Typography>
       </Box>
     );
   }
 
-  const thumbnails = getThumbnails();
-
-  // Skeleton loader component
-  const SkeletonLoader = () => (
-    <Grid container spacing={sm || md ? 2 : 3}>
-      {Array.from({ length: Math.min(6, images.length) }).map((_, idx) => (
-        <Grid item xs={12} sm={6} md={4} key={idx}>
-          <Skeleton
-            variant="rectangular"
-            width="100%"
-            height={300}
-            sx={{ borderRadius: 1 }}
-            animation="wave"
-          />
-        </Grid>
-      ))}
-    </Grid>
-  );
-
+  const thumbnails = useThumbnails(images)();
+  const getLightboxImages = useLightboxImages(images);
+  const imagesLoaded = useImageLoading(containerRef, [thumbnails]);
+  
+  useThumbnailPreloading(thumbnails);
+  useLightboxPrefetching(index, getLightboxImages());
+  
   return (
     <Box component="article" sx={{ p: (sm || md) ? 2 : 3, position: 'relative' }}>
       <Box 
@@ -130,14 +49,23 @@ const ImageGallery = ({ images = [] }) => {
         <PhotoAlbum
           photos={thumbnails}
           layout="rows"
-          targetRowHeight={300}
+          targetRowHeight={GALLERY_CONFIG.TARGET_ROW_HEIGHT}
           onClick={(event, photo, index) => setIndex(index)}
-          spacing={(containerWidth) => (containerWidth < IMAGE_BREAKPOINTS.md ? 15 : 20)}
+          spacing={(containerWidth) => 
+            containerWidth < IMAGE_BREAKPOINTS.md 
+              ? GALLERY_CONFIG.SPACING_SMALL 
+              : GALLERY_CONFIG.SPACING_LARGE
+          }
         />
       </Box>
       {!imagesLoaded && (
-        <Box sx={{ position: 'absolute', top: (sm || md) ? 16 : 24, left: (sm || md) ? 16 : 24, right: (sm || md) ? 16 : 24 }}>
-          <SkeletonLoader />
+        <Box sx={{ 
+          position: 'absolute', 
+          top: (sm || md) ? 16 : 24, 
+          left: (sm || md) ? 16 : 24, 
+          right: (sm || md) ? 16 : 24 
+        }}>
+          <SkeletonLoader maxCount={images.length} />
         </Box>
       )}
       <Lightbox
@@ -147,24 +75,7 @@ const ImageGallery = ({ images = [] }) => {
         close={() => setIndex(-1)}
         carousel={{ finite: false }}
         render={{
-          loadingIndicator: () => (
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                zIndex: 1,
-              }}
-            >
-              <CircularProgress size={60} sx={{ color: 'white' }} />
-            </Box>
-          ),
+          loadingIndicator: () => <LightboxLoader />,
         }}
       />
     </Box>
