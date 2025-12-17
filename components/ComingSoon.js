@@ -1,5 +1,5 @@
 import React from 'react';
-import Typed from 'react-typed';
+import TypeAnimation from 'react-type-animation';
 import styles from '../styles/ComingSoon.module.css'
 import Typography from '@mui/material/Typography';
 
@@ -12,15 +12,19 @@ const ComingSoon = () => {
             Coming Soon.
           </Typography>
           <Typography variant="body1" component="h2">
-            <Typed
-                strings={[
+            <TypeAnimation
+                sequence={[
                   'Great things take time!',
+                  2000,
                   'We promise it will be worth the wait..',
+                  2000,
                   'Check back later!',
-                  'Thanks for your continuous support ;)'
+                  2000,
+                  'Thanks for your continuous support ;)',
+                  2000,
                 ]}
-                typeSpeed={100}
-                loop
+                speed={50}
+                repeat={Infinity}
             />
           </Typography>
         </div>
