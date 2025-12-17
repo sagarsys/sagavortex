@@ -2,6 +2,9 @@
   "name": "sagavortex",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,12 +19,15 @@
     "@mui/icons-material": "^5.16.0",
     "@mui/lab": "^5.0.0-alpha.177",
     "@mui/material": "^5.16.0",
+    "gray-matter": "^4.0.3",
     "next": "^16.0.10",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-photo-album": "^1.14.0",
     "react-type-animation": "^1.1.2",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
     "swr": "^2.2.4",
     "unfetch": "^4.2.0",
     "yet-another-react-lightbox": "^3.15.0"
