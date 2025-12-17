@@ -6,6 +6,7 @@ import { imagesData } from '../data/images'
 import { IMAGE_BREAKPOINTS } from '../constants';
 import { calculateImageDimensionForViewPort } from '../utils/images';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const HomeGallery = () => {
   const { sm, md, lg, xl } = useViewportSize()
@@ -48,6 +49,26 @@ const HomeGallery = () => {
             index={index}
             close={() => setIndex(-1)}
             carousel={{ finite: false, }}
+            render={{
+              loadingIndicator: () => (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    zIndex: 1,
+                  }}
+                >
+                  <CircularProgress size={60} sx={{ color: 'white' }} />
+                </Box>
+              ),
+            }}
         />
       </Box>
   );
