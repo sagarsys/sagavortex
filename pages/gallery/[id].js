@@ -1,14 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import MuiLink from '@mui/material/Link';
-import HomeIcon from '@mui/icons-material/Home';
+import CollectionsIcon from '@mui/icons-material/Collections';
 import ImageGallery from '../../components/ImageGallery';
 import { getCategoryById } from '../../data/categories';
+import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
 const CategoryGallery = () => {
   const router = useRouter();
@@ -38,27 +36,13 @@ const CategoryGallery = () => {
       <Head>
         <title>{category.name} - SagaVortex Photography</title>
       </Head>
+      <PageBreadcrumbs
+        items={[
+          { label: 'Gallery', href: '/gallery', icon: CollectionsIcon },
+          { label: category.name },
+        ]}
+      />
       <Box component="article" sx={{ p: { xs: 2, md: 3 } }}>
-        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 3 }}>
-          <MuiLink
-            component={Link}
-            href="/"
-            color="inherit"
-            sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
-          >
-            <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-            Home
-          </MuiLink>
-          <MuiLink
-            component={Link}
-            href="/gallery"
-            color="inherit"
-            sx={{ textDecoration: 'none' }}
-          >
-            Gallery
-          </MuiLink>
-          <Typography color="text.primary">{category.name}</Typography>
-        </Breadcrumbs>
         <Typography variant="h4" component="h1" sx={{ mb: 1 }}>
           {category.name}
         </Typography>

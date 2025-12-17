@@ -37,12 +37,12 @@ const HomeGallery = () => {
         <PhotoAlbum
           photos={thumbnails}
           layout="rows"
-          targetRowHeight={GALLERY_CONFIG.TARGET_ROW_HEIGHT}
+          targetRowHeight={GALLERY_CONFIG?.TARGET_ROW_HEIGHT ?? 300}
           onClick={(event, photo, index) => setIndex(index)}
           spacing={(containerWidth) => 
             containerWidth < IMAGE_BREAKPOINTS.md 
-              ? GALLERY_CONFIG.SPACING_SMALL 
-              : GALLERY_CONFIG.SPACING_LARGE
+              ? (GALLERY_CONFIG?.SPACING_SMALL ?? 15)
+              : (GALLERY_CONFIG?.SPACING_LARGE ?? 20)
           }
         />
       </Box>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { GALLERY_CONFIG } from '../constants';
 
-const MAX_WAIT_TIME = GALLERY_CONFIG.IMAGE_LOADING_MAX_WAIT;
-const CHECK_INTERVAL = GALLERY_CONFIG.IMAGE_LOADING_CHECK_INTERVAL;
+const MAX_WAIT_TIME = GALLERY_CONFIG?.IMAGE_LOADING_MAX_WAIT ?? 10000;
+const CHECK_INTERVAL = GALLERY_CONFIG?.IMAGE_LOADING_CHECK_INTERVAL ?? 200;
 
 /**
  * Hook to track when images in a container are loaded

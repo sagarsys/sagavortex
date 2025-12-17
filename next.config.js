@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: 'export',
   images: {
+    unoptimized: true, // Required for static export
     deviceSizes: [320, 540, 768, 1024, 1360, 1920, 2500],
     loader: "default",
     remotePatterns: [
@@ -22,20 +24,8 @@ const nextConfig = {
       },
     ],
   },
-  async headers() {
-    return [
-      {
-        // Apply caching headers to static assets (images, fonts, etc.)
-        source: '/images/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
-  },
+  // Note: headers() is not available with static export
+  // Configure caching headers at your hosting provider level
 }
 
 module.exports = nextConfig
